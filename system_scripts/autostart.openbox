@@ -1,0 +1,10 @@
+#!/bin/sh
+
+## Need to disable the screensaver and pointer and such.
+#chromium-browser --no-first-run --kiosk "http://mbtaonbus" &
+
+xset -dpms &
+xset s off &
+xset s noblank &
+unclutter &
+chromium-browser --window-size=1024,768 --start-fullscreen --kiosk --incognito --noerrdialogs --disable-translate --no-first-run --fast --fast-start --disable-infobars --disk-cache-dir=/dev/null --app="http://mbtaonbus" &

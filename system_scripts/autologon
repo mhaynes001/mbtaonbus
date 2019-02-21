@@ -1,0 +1,5 @@
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --noissue --autologin screen %I $TERM
+Type=idle
+

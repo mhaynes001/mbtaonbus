@@ -1,0 +1,14 @@
+
+[Unit]
+Description=uWSGI instance to serve mbtaonbus
+After=network.target
+
+[Service]
+User=user
+Group=www-data
+WorkingDirectory=/home/user/mbtaonbus
+Environment="PATH=/home/user/mbtaonbus/venv/bin"
+ExecStart=/home/user/mbtaonbus/venv/bin/uwsgi --ini mbtaonbus.ini
+
+[Install]
+WantedBy=multi-user.target

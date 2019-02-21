@@ -1,0 +1,10 @@
+server {
+    listen 80;
+    server_name mbtaonbus;
+
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:/home/user/mbtaonbus/mbtaonbus.sock;
+        #uwsgi_pass unix:///tmp/mbtaonbus.sock;
+    }
+}

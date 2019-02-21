@@ -1,0 +1,6 @@
+LC_ALL=en_US.UTF-8
+FLASK_ENV=production
+MBTA_KEY=<YourKeyHere>
+MAPBOX_KEY=<YourKeyHere>
+MAPBOX_USER=<YourMapboxUsernameHere>
+MAPBOX_STYLE=<YourStyleKeyHere>

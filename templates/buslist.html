@@ -1,0 +1,48 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <title>MBTA List of active vehicles</title>
+  </head>
+  <body>
+
+<br>
+<div class="container" style="width: 50%;">
+    <div class="flex-sm-row">
+        <div class="col-sm">  
+		<img src="{{ url_for('static', filename='images/MBTA.png') }}" alt="MBTA Logo" height="94" width="457">
+	  <!--	<svg viewBox="0 0 198 36.91016" xmlns="http://www.w3.org/2000/svg"><path d="m18 34.4a16.4 16.4 0 1 1 16.4-16.4 16.34585 16.34585 0 0 1 -16.4 16.4zm0-34.4a18 18 0 1 0 18 18 18.05292 18.05292 0 0 0 -18-18" fill="#1c1e23"></path><path d="m6.6 15.7h8.6v14h5.6v-14h8.6v-5.7h-22.8z" fill="#1c1e23"></path><text font-family="Helvetica-Bold, Helvetica" font-size="13.38351" font-weight="700" transform="translate(41.6001 14.41357)">Massachusetts Bay<tspan letter-spacing="-.05469em" x="0" y="16.06006">T</tspan><tspan letter-spacing="-.00004em" x="7.44336" y="16.06006">ransportation</tspan><tspan letter-spacing="-.03663em" x="93.69775" y="16.06006"></tspan><tspan x="96.92627" y="16.06006">Authority</tspan></text></svg>  -->
+          <img src="">
+        </div>
+    </div>
+    <div class="row">
+    <br><br>
+    <h2>MBTA List of active vehicles</h2>  
+    
+	<table class="table table-striped">
+	  <thead class="thead-light">
+		<tr>
+		  <th scope="col">Bus</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		{% for item in veh_list %}
+        <tr>
+		  <th scope="row"><a href="preds/{{ item }}">{{item}}</a></th>
+		</tr>
+    	{% endfor %}
+	  </tbody>
+	</table>
+    </div>
+</div>
+</body>
+</html>
