@@ -2,7 +2,7 @@
 On-bus prediction screen prototype using MBTA API.  (Ubuntu/Python/Flask) 
 {not affiliated with the [MBTA](https://www.mbta.com/)}
 
-**Prototype code, not production ready!**
+>**Prototype code, not production ready!**
 
 ### Project Goal:
 Demonstrate an on board passenger information screen for a transit vehicle showing a map of the current 
@@ -11,7 +11,7 @@ on a simple Ubuntu/Python/Flask platform for quick demonstration in a virtual ma
 on on-board router or Raspbery Pi equipment.  
 
 See image at ExampleScreenShot.png included in the repository:  
-![ExampleScreenShot](https://github.com/mhaynes001/mbtaonbus/blob/master/ExampleScreenShot.png?raw=true)
+![ExampleScreenShot](ExampleScreenShot.png?raw=true)
 
 ### Setup: 
 1. Get MBTA key [request here](https://api-v3.mbta.com/)
