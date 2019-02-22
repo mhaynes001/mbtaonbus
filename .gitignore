@@ -1,0 +1,11 @@
+# Files to ignore in the git repository
+__pycache__/
+data/
+logs/
+static/css/
+static/js/jquery-3.3.1.min.js
+static/leaflet
+variables.env
+venv/
+mbtaonbus.socks
+
