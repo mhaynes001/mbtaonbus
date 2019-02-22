@@ -43,3 +43,5 @@ See image at ExampleScreenShot.png included in the repository:
 - [ ] Set default virtual machine resolution on boot.
 - [ ] Start brand new GitHub repository rebuilding based on GTFS-RT feed and test with other transit properties
 
+### Possible on-board solution: 
+[LILEE Systems](https://www.lileesystems.com/) was the inspiration for this prototype.  They have an on-vehicle router that supports Ubuntu Virtual Machines and has an HDMI port to support a screen.  [STS Datasheet](https://www2.lileesystems.com/lilee-transair-sts-1020_datasheet).  Soon I will add in a small zip file of scripts to set up a Raspberry Pi 0W to power a 7" screen.     
