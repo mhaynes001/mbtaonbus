@@ -36,6 +36,7 @@ echo "Extracting web_static tar in root of home directory"
 cd ~
 cp ~/mbtaonbus/web_static.tar.gz .
 tar -xf web_static.tar.gz
+rm web_static.tar.gz
 cd ~/mbtaonbus/bash_scripts
 
 echo "*****************************************************************************"
@@ -98,7 +99,7 @@ ln -s /tmp/reqlog ~/mbtaonbus/logs/flask.reqlog
 echo "*****************************************************************************"
 echo "Set up symlinks to web_static code repositories:"
 ln -s ~/web_static/js/jquery-3.3.1.min.js ~/mbtaonbus/static/js/.
-mkdir ~/mbtaonbus/static/cssc
+mkdir ~/mbtaonbus/static/css
 ln -s ~/web_static/css/* ~/mbtaonbus/static/css/.
 ln -s ~/web_static/leaflet ~/mbtaonbus/static/.
 

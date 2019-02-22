@@ -12,14 +12,14 @@ See image at ExampleScreenShot.png included in the repository.
 ![ExampleScreenShot](https://github.com/mhaynes001/mbtaonbus/blob/master/ExampleScreenShot.png?raw=true)
 
 ### Setup: 
-1. Get MBTA key
-2. Get Mapbox key
+1. Get MBTA key [request here](https://api-v3.mbta.com/)
+2. Get [Mapbox](https://www.mapbox.com/) key & set up map and style
 3. Set up Ubuntu Server main user as "user" (command line only with Open SSH)
 4. Pull down repositiry 'git ...'
 5. Run '~/mbtaonbus/bash_scripts/setup.sh'
-6. Navigate to http://mbtaonbus/ and pick a bus
-7. Size window to nnn x nnn 
-8. Optionally set up the screen user by running'~/mbtaonbus/bash_scripts/screen_setup.sh'
+6. Navigate to http://mbtaonbus/ and pick a bus on local machine
+   (or run screen_setup.sh to run a local display in the VM)
+7. Size window to 1024 x 786
 
 ### Data Sources: 
 - [MBTA GTFS](https://www.mbta.com/developers/gtfs)
