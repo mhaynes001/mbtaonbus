@@ -8,25 +8,26 @@ location, route/stops, rail lines and a list of upcoming stops with predictions.
 on a simple Ubuntu/Python/Flask platform for quick demonstration in a virtual machine for eventual installation
 on on-board router or Raspbery Pi equipment.  
 
-See image at ExampleScreenShot.png included in the repository.  
+See image at ExampleScreenShot.png included in the repository:  
 ![ExampleScreenShot](https://github.com/mhaynes001/mbtaonbus/blob/master/ExampleScreenShot.png?raw=true)
 
 ### Setup: 
 1. Get MBTA key [request here](https://api-v3.mbta.com/)
 2. Get [Mapbox](https://www.mapbox.com/) key & set up map and style
 3. Set up Ubuntu Server main user as "user" (command line only with Open SSH)
-4. Pull down repositiry 'git ...'
+4. Pull down repositiry 'git ...' (Update variables.template as variables.env with your key values)
 5. Run '~/mbtaonbus/bash_scripts/setup.sh'
-6. Navigate to http://mbtaonbus/ and pick a bus on local machine
-   (or run screen_setup.sh to run a local display in the VM)
-7. Size window to 1024 x 786
+6. Navigate to http://mbtaonbus/ on local network and pick a bus
+   (or run screen_setup.sh to run a browser display locally in the VM)
+7. Size VM window to 1024 x 786
 
 ### Data Sources: 
 - [MBTA GTFS](https://www.mbta.com/developers/gtfs)
-- [MBTA V3 API](https://www.mbta.com/developers/v3-api)
-- [MBTA V3 API Documentation & Key request](https://api-v3.mbta.com/)
+- [MBTA V3 API](https://www.mbta.com/developers/v3-api) with [Documentation & Key request](https://api-v3.mbta.com/)
 
 ### Back end: 
+- [Ubuntu 18.04](https://www.ubuntu.com/download/server)
+- [Python3](https://www.python.org/)
 - [jquery](https://jquery.com/)
 - [Bootstrap](https://getbootstrap.com/)
 - [Leaflet](https://leafletjs.com/)
@@ -34,7 +35,7 @@ See image at ExampleScreenShot.png included in the repository.
 
 ### To do: 
 - [ ] Error handling
-- [ ] List all buses on main page
+- [ ] List all buses on main page (not just first 50)
 - [ ] Set bus ID as system variable if exists go directly to predictions for that bus
 - [ ] Black background version
 - [ ] Set default virtual machine resolution on boot.
