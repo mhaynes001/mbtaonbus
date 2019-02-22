@@ -7,5 +7,5 @@ static/js/jquery-3.3.1.min.js
 static/leaflet
 variables.env
 venv/
-mbtaonbus.socks
+mbtaonbus.sock
 

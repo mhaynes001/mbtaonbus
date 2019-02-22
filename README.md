@@ -1,6 +1,7 @@
 # mbtaonbus
 On-bus prediction screen prototype using MBTA API.  (Ubuntu/Python/Flask) 
 {not affiliated with the [MBTA](https://www.mbta.com/)}
+** Prototype code **
 
 ### Project Goal:
 Demonstrate an on board passenger information screen for a transit vehicle showing a map of the current 
