@@ -33,6 +33,25 @@ def preds(bus):
 		# Bus not in service, return the no predictions page.
 		return render_template('nopreds.html',bus=bus)
 
+@app.route("/preds-dark/<string:bus>/")
+# The main page with bus current route info and prediction grid with map:
+def preds_dark(bus):
+	veh_data = mf.getbasicdata(bus)
+	if veh_data is not None:
+		# Go get the predictions, shape and alerts and store in a data dictionary:
+		data_dict = {"veh_data": veh_data,
+				     "pred_data": mf.getpredictions(veh_data["trip_id"]),
+		 			 "shape_data": mf.getshape(veh_data["shape_id"]),
+		 			 "alert_data": mf.getalerts(veh_data["route_id"]),
+		 			 "map_data": mf.getmapboxkey(),
+		 			 "stop_data": mf.getstops(veh_data["trip_id"])
+		 			 }
+		# Should probably test for prediction data as well before continuing:
+		return render_template('preds-dark.html',data=data_dict)
+	else:
+		# Bus not in service, return the no predictions page.
+		return render_template('nopreds.html',bus=bus)
+
 # Not sure if this is required or not for the main Flask application:
 if __name__ == "__main__":
     app.run()

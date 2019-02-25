@@ -39,7 +39,7 @@ See image at ExampleScreenShot.png included in the repository:
 - [ ] Error handling
 - [ ] List all buses on main page (not just first 50)
 - [ ] Set bus ID as system variable if exists go directly to predictions for that bus
-- [ ] Black background version
+- [X] Black background version 
 - [ ] Set default virtual machine resolution on boot.
 - [ ] Start brand new GitHub repository rebuilding based on GTFS-RT feed and test with other transit properties
 
