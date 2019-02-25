@@ -46,7 +46,7 @@ sudo apt-get -y upgrade
 
 echo "*****************************************************************************"
 echo "running apt-get install"
-sudo apt-get -y install python3-pip python3-venv nginx unzip
+sudo apt-get -y install python3-pip python3-venv nginx unzip ntpdate
 
 echo "*****************************************************************************"
 echo "create directories"

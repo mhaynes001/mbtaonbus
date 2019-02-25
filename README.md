@@ -35,9 +35,12 @@ See image at ExampleScreenShot.png included in the repository:
 - [Leaflet](https://leafletjs.com/)
 - [Mapbox](https://www.mapbox.com/)
 
+### Updates: 
+- Navigate to http://mbtaonbus/preds-dark/####/ where #### is a valid operating bus number for a pure white on black version.
+
 ### To do: 
 - [ ] Error handling
-- [ ] List all buses on main page (not just first 50)
+- [X] List all buses on main page (not just first 50)
 - [ ] Set bus ID as system variable if exists go directly to predictions for that bus
 - [X] Black background version 
 - [ ] Set default virtual machine resolution on boot.

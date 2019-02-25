@@ -39,6 +39,7 @@ unique_stopstrings.stops.apply(lambda x: x[1:-1].split(',') )
 #Function that gets data compressed and then uncompresses it to JSON, returns JSON:
 def apiget(midurl,endurl=''):
     fullurl = mainurl + midurl + '?api_key=' + apikey + endurl
+    #print(fullurl)
     req = Request(fullurl)
     req.add_header('Accept-Encoding', 'gzip')
     try:
@@ -77,7 +78,7 @@ def getdata(data,id_col,id_in):
     return output
 
 # Function to return the ordinal version of a number:   (I have no idea how this works!)
-# Found: https://stackoverflow.com/questions/9647202/ordinal-numbers-replacement 
+# Found: https://stackoverflow.com/questions/9647202/ordinal-numbers-replacement
 ordinal = lambda n: "%d%s" % (n,"tsnrhtdd"[(math.floor(n/10)%10!=1)*(n%10<4)*n%10::4])
 
 # Function to return a string even if None:
@@ -85,10 +86,11 @@ xstr = lambda s: '' if s is None else str(s)
 
 # Function to return a list of active vehicles (for the main page to select a bus)
 def getvehicles():
+    i = 0
     veh_list = []
     veh_data = apiget('vehicles')
-    for i in range(50):   ### Need to fix this to list all buses, need to get the count
-        if veh_data['data'][i]['id'][0] == 'y':
+    for i in range(len(veh_data['data'])):   # From 0 to length of vehicles list
+        if veh_data['data'][i]['id'][0] == 'y' and veh_data['data'][i]['id'][1] != 's':
             veh_list.append(veh_data['data'][i]['id'][1:])
     return veh_list
 
@@ -169,6 +171,7 @@ def getpredictions(trip_id):
 		pred_length = 0
 		return
 	factor = math.trunc(pred_length/8)+1
+
 	if pred_length < 10: factor = 1  # If 9 or less factor is 1
 	# Can just make the array so it essentially is and n in []
 	# Special case array for six n values. store them in another array.
