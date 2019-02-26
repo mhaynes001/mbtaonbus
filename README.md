@@ -10,6 +10,8 @@ location, route/stops, rail lines and a list of upcoming stops with predictions.
 on a simple Ubuntu/Python/Flask platform for quick demonstration in a virtual machine for eventual installation
 on on-board router or Raspbery Pi equipment.  
 
+**[Video Example](https://youtu.be/D3fVro2X6rw)**
+
 See image at ExampleScreenShot.png included in the repository:  
 ![ExampleScreenShot](ExampleScreenShot.png?raw=true)
 
