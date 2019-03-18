@@ -9,7 +9,7 @@ from protobuf_to_dict import protobuf_to_dict as pb_to_dict
 import math, os, requests as req, datetime as dt, pandas as pd
 
 def timestamp_convert(posix_time):
-	return dt.datetime.fromtimestamp(posix_time).strftime('%Y-%m-%d %H:%M:%S')
+    return dt.datetime.fromtimestamp(posix_time).strftime('%H:%M:%S')
 
 veh_feed = gtfs_rt.FeedMessage()
 trip_feed = gtfs_rt.FeedMessage()
@@ -43,15 +43,6 @@ trip_patterns = pd.read_csv(data_path+'trip_patterns.txt', dtype={'trip_id': int
 unique_stopstrings = pd.read_csv(data_path+'unique_stopstrings.txt', dtype={'pattern': int, 'stops': str})
 unique_stopstrings.stops.apply(lambda x: x[1:-1].split(',') )
 
-# Function to convert time to a nice string for presentation:
-def converttime(time_in):
-	if time_in is None: return
-	if time_in[-3:-2] == ":":
-        time_in = time_in[:-3]+time_in[-2:]  #remove the last colon from UTC offset
-    time_out = datetime.datetime.strptime(time_in,"%Y-%m-%dT%H:%M:%S%z")
-    time_out = time_out.strftime('%-I:%M:%S')
-    return time_out
-
 # Function to look up data and return a dictionary of attributes:
 def getdata(data,id_col,id_in):
     try:
@@ -70,59 +61,63 @@ xstr = lambda s: '' if s is None else str(s)
 # Function to return a list of active vehicles (for the main page to select a bus)
 def getvehicles():
     veh_response = req.get(gtfs_rt_url+'VehiclePositions.pb')
-	veh_feed.ParseFromString(veh_response.content)
-	# convert to dict from protobuf feed
-	veh_dict = pb_to_dict(veh_feed)
+    veh_feed.ParseFromString(veh_response.content)
+    # convert to dict from protobuf feed
+    veh_dict = pb_to_dict(veh_feed)
 
-	veh_list = []
-     	for x in veh_dict['entity']:
-        	veh_list.append(x['vehicle']['vehicle']['label'])
-     	return veh_list
+    veh_list = []
+    for x in veh_dict['entity']:
+        veh_list.append(x['vehicle']['vehicle']['label'])
+    return veh_list
 
 # Function to get the basic bus data (test for data to ensure it is out there)
 def getbasicdata(veh):
     veh_response = req.get(gtfs_rt_url+'VehiclePositions.pb')
-	veh_feed.ParseFromString(veh_response.content)
-	# convert to dict from protobuf feed
-	veh_dict = pb_to_dict(veh_feed)
-	veh_match = next((x for x in veh_dict['entity'] if x['vehicle']['vehicle']['label'] == veh), 'None')
-	veh_match = veh_match['vehicle']
-	
-	if veh_data is not None:
-        	return processveh_data(veh_match)
-    	else:
-        	return
+    veh_feed.ParseFromString(veh_response.content)
+    # convert to dict from protobuf feed
+    veh_dict = pb_to_dict(veh_feed)
+    veh_match = next((x for x in veh_dict['entity'] if x['vehicle']['vehicle']['label'] == veh), 'None')
+    veh_match = veh_match['vehicle']
+
+    if veh_match is not None:
+        return processveh_data(veh_match)
+    else:
+        return
 
 # Function to process the data into dictionary for webpage.
 def processveh_data(veh_data):
     # Current time:
-	currentDT = dt.datetime.now() # + datetime.timedelta(hours=1)  # +1 to get to EST
+    currentDT = dt.datetime.now() # + datetime.timedelta(hours=1)  # +1 to get to EST
 
-	route_id = veh_data['trip']['route_id']
-	trip_id = veh_data['trip']['trip_id']
-	lat = round(veh_data['position']['latitude'],6)
-	long = round(veh_data['position']['longitude'],6)
-	heading = veh_data['position']['bearing']
-	location = str(lat) +','+ str(long) +','+ str(heading)
-	current_status = veh_data['current_status']   ### Need to look these up. 
+    route_id = veh_data['trip']['route_id']
+    trip_id = veh_data['trip']['trip_id']
+    print('trip_id:',trip_id)
+    shape_id =  getdata(trip_patterns,'trip_id',trip_id).get('shape_id')
+    shape_id = 7430010
+    print('shape_id:',shape_id)
+    lat = round(veh_data['position']['latitude'],6)
+    long = round(veh_data['position']['longitude'],6)
+    heading = veh_data['position']['bearing']
+    location = str(lat) +','+ str(long) +','+ str(heading)
+    current_status = veh_data['current_status']   ### Need to look these up.
 
-	veh_data_out = {
-    	"vehicle_number" : veh_data['vehicle']['label'],
-    	"lat" : lat, "long" : long, "heading" : heading, "location" : location,
-    	"updated_at" : timestamp_convert(veh_data['timestamp']),
-    	"current_time" : currentDT.strftime('%-I:%M:%S %p'),
-    	"current_status" : current_status,  #.replace("_", " ").lower()
+    veh_data_out = {
+        "vehicle_number" : veh_data['vehicle']['label'],
+        "lat" : lat, "long" : long, "heading" : heading, "location" : location,
+        "updated_at" : timestamp_convert(veh_data['timestamp']),
+        "current_time" : currentDT.strftime('%-I:%M:%S %p'),
+        "current_status" : current_status,  #.replace("_", " ").lower()
 
-    	"route_id" : route_id, 
-    	"dir_id" : veh_data['trip']['direction_id'],
-    	"stop_id" : veh_data['stop_id'],
-    	"stop" : str.upper(xstr(getdata(stop_data,'stop_id',veh_data['stop_id']).get("stop_name"))),
-    	"trip_id" : trip_id,
-    
-    	"route_name" : getdata(route_data,'route_id',route_id).get('route_short_name'),
-    	"route_des" : getdata(route_data,'route_id',route_id).get('route_long_name'),
-    	"headsign" : '',  ## Does not exist in GTFS-rt feed
-    	"shape_id" : getdata(trip_patterns,'trip_id',trip_id).get('shape_id')
+        "route_id" : route_id,
+        "dir_id" : veh_data['trip']['direction_id'],
+        "stop_id" : veh_data['stop_id'],
+        "stop" : str.upper(xstr(getdata(stop_data,'stop_id',veh_data['stop_id']).get("stop_name"))),
+        "trip_id" : trip_id,
+
+        "route_name" : getdata(route_data,'route_id',route_id).get('route_short_name'),
+        "route_des" : getdata(route_data,'route_id',route_id).get('route_long_name'),
+        "headsign" : '',  ## Does not exist in GTFS-rt feed
+        "shape_id" : shape_id
     }
     return veh_data_out
 
@@ -131,21 +126,20 @@ def getpredictions(trip_id):
     trip_response = req.get(gtfs_rt_url+'TripUpdates.pb')
     trip_feed.ParseFromString(trip_response.content)
     trip_dict = pb_to_dict(trip_feed)
-    
+
     trip_match = next((x for x in trip_dict['entity'] if x['id'] == trip_id), None)
-    #print(trip_match)
     try:
         pred_results = trip_match['trip_update']['stop_time_update']
-    except: 
+    except:
         return
-    
+
     pred_data = []
     n = 0  # The prediction position in the main list
     m = 0  # The prediction position in what is returned
 
     ## Get the length of the pred_results array and evenly obtain 8 predictions
     ## If an odd number should not show stop #8 so that we always have 8
-    pred_length = len(pred_data)
+    pred_length = len(pred_results)
     factor = math.trunc(pred_length/8)+1
 
     if pred_length < 10: factor = 1  # If 9 or less factor is 1
@@ -154,7 +148,7 @@ def getpredictions(trip_id):
 
     for result in pred_results:
         n += 1
-        if 'arival' in result.keys(): 
+        if 'arival' in result.keys():
             time = timestamp_convert(result['arival']['time'])
         if 'departure' in result.keys():
             time = timestamp_convert(result['departure']['time'])

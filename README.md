@@ -1,4 +1,4 @@
-# mbtaonbus
+# mbtaonbus  (using GTFS-rt)
 On-bus prediction screen prototype using MBTA API.  (Ubuntu/Python/Flask) 
 {not affiliated with the [MBTA](https://www.mbta.com/)}
 
